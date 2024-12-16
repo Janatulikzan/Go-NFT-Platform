@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "Go-NFT-backend": {
+      "main": "src/Go-NFT-backend/main.mo",
+      "type": "motoko"
+    },
+    "Go-NFT-frontend": {
+      "dependencies": [
+        "Go-NFT-backend"
+      ],
+      "source": [
+        "src/Go-NFT-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "Go-NFT-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
