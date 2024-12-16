@@ -1,30 +1,33 @@
-import { useState } from 'react';
-import { Go_NFT_backend } from 'declarations/Go-NFT-backend';
+import { useState } from "react";
+import { Go-NFT-backend } from "declarations/Go-NFT-backend";
+import Home from "./Components/Home/Home";
+import Navbar from "./Components/Navbar/Navbar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [greeting, setGreeting] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const name = event.target.elements.name.value;
-    Go_NFT_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
+
+    try {
+      const response = await Go-NFT-backend.greet(name);
+      setGreeting(response);
+    } catch (error) {
+      console.error("Error while calling backend:", error);
+      alert("Failed to fetch greeting. Please check your backend setup.");
+    }
   }
 
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/navbar" element={<Navbar />} /> {/* Sesuaikan path ini */}
+      </Routes>
+    </Router>
   );
 }
 
